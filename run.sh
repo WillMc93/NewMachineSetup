@@ -4,36 +4,26 @@
 sudo apt update
 sudo apt full-upgrade -y
 
+
 # Get some essentials
 sudo apt install curl gcc g++ make perl r-recommended vim zsh -y
+
 
 # Make container for downloads
 sudo mkdir /tmp/setup/
 tmpdir='/tmp/setup'
 
+
 # Get miniconda
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $tmpdir/miniconda.sh
+sudo wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $tmpdir/miniconda.sh
 sh $tmpdir/miniconda.sh -b -p $HOME/miniconda
 
 eval "$($HOME/miniconda/bin/conda shell.bash hook)"
-conda init
+conda init bash
+conda init zsh
 
-echo "# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/will/miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/will/miniconda/etc/profile.d/conda.sh" ]; then
-        . "/home/will/miniconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/will/miniconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<" >> ~/.zshrc
-
-
+# install preferred packages to base
+conda install numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn requests beautifulsoup4 -y
 
 
 # Get zsh and Oh-My-ZSH
@@ -48,3 +38,10 @@ sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20N
 sudo cp -f $tmpdir/*.ttf /usr/share/fonts/truetype/
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+# Set ZSH theme to powerlevel10k and set plugins for powerlevel10k
+
+# Reboot to re-source all files
+echo "System will reboot in 60 secs."
+sleep 1m
+sudo reboot
