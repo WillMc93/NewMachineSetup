@@ -41,6 +41,10 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 # Set ZSH theme to powerlevel10k and set plugins for powerlevel10k
 
+
+# Cleanup
+sudo apt auto-remove -y
+
 # Reboot to re-source all files
 echo "System will reboot in 60 secs."
 sleep 1m
