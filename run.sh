@@ -50,6 +50,9 @@ curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloL
 
 sudo -u $LOCAL_USER git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$LOCAL_HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
+sudo -u $LOCAL_USER chsh /bin/zsh
+
+
 # Set ZSH theme to powerlevel10k and set plugins
 # TODO: Set theme and set plugins and set default font in terminal
 
@@ -63,7 +66,7 @@ sudo -u $LOCAL_USER $LOCAL_HOME/miniconda/bin/conda init bash
 sudo -u $LOCAL_USER $LOCAL_HOME/miniconda/bin/conda init zsh
 
 # install preferred packages to base
-sudo -u $LOCAL_USER conda install -y numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn requests beautifulsoup4
+sudo -u $LOCAL_USER $LOCAL_HOME/miniconda/bin/conda install -y numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn requests beautifulsoup4
 
 
 # Cleanup
@@ -72,5 +75,5 @@ apt auto-remove -y
 
 # Reboot into a ready environment
 echo "System will reboot in 60 secs."
-sleep 10
-reboot
+#sleep 10
+#reboot
