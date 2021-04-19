@@ -5,13 +5,21 @@ sudo apt update
 sudo apt full-upgrade -y
 
 
-# Get some essentials
-sudo apt install curl gcc g++ make perl r-recommended vim zsh -y
-
-
 # Make container for downloads
 sudo mkdir /tmp/setup/
 tmpdir='/tmp/setup'
+
+
+# Get some essentials
+sudo apt install apt-transport-https chromium curl git gcc g++ make perl r-recommended vim zsh -y
+
+
+# Get sublime text
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+sudo apt update
+sudo apt install sublime-text -y
 
 
 # Get miniconda
@@ -30,22 +38,28 @@ conda install numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn r
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Get fonts for powerlevel10k and then git powerlevel10k
-sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o $tmpdir/MesloReg.ttf
-sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o $tmpdir/MesloBold.ttf
-sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o $tmpdir/MesloItalic.ttf
-sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o $tmpdir/MesloIB.ttf
+sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+sudo curl https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+
+sudo curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Regular.ttf -o $tmpdir'MesloLGS NF Regular.ttf' 
+sudo curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold.ttf -o $tmpdir'MesloLGS NF Bold.ttf' 
+sudo curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Italic.ttf -o $tmpdir'MesloLGS NF Italic.ttf' 
+sudo curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold%20Italic.ttf -o $tmpdir'MesloLGS NF Bold Italic.ttf' 
 
 sudo cp -f $tmpdir/*.ttf /usr/share/fonts/truetype/
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-# Set ZSH theme to powerlevel10k and set plugins for powerlevel10k
+# Set ZSH theme to powerlevel10k and set plugins
 
 
 # Cleanup
 sudo apt auto-remove -y
 
-# Reboot to re-source all files
+
+# Reboot into a ready environment
 echo "System will reboot in 60 secs."
 sleep 1m
 sudo reboot
