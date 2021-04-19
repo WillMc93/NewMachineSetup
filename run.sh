@@ -54,7 +54,7 @@ curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloL
 curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Italic.ttf -o $FONTDIR'MesloLGS NF Italic.ttf' 
 curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold%20Italic.ttf -o $FONTDIR'MesloLGS NF Bold Italic.ttf'
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$LOCAL_HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # Set ZSH theme to powerlevel10k and set plugins
 # TODO: Set theme and set plugins and set default font in terminal
