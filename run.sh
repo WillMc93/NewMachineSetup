@@ -1,7 +1,14 @@
 #!/bin/bash
 
-echo $HOME
-echo $USER
+# TODO: Find way to record runner of script or check for this argument
+LOCAL_USER=$1
+LOCAL_HOME=/Home/$1
+
+
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+
+echo $LOCAL_HOME
+echo $LOCAL_USER
 
 # Variable Declarations
 TMPDIR='/tmp/setup'
@@ -28,14 +35,14 @@ apt install -y apt-transport-https chromium-browser curl git gcc g++ make perl r
 
 # Get miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $TMPDIR/miniconda.sh
-sh $TMPDIR/miniconda.sh -b -p $HOME/miniconda
+sh $TMPDIR/miniconda.sh -b -p $LOCAL_HOME/miniconda
 
-eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+eval "$($LOCAL_HOME/miniconda/bin/conda shell.bash hook)"
 conda init bash
 conda init zsh
 
 # install preferred packages to base
-# conda install -y numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn requests beautifulsoup4
+conda install -y numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn requests beautifulsoup4
 
 
 # Get Oh-My-ZSH
@@ -50,7 +57,7 @@ curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloL
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # Set ZSH theme to powerlevel10k and set plugins
-
+# TODO: Set theme and set plugins and set default font in terminal
 
 # Cleanup
 apt auto-remove -y
@@ -58,5 +65,5 @@ apt auto-remove -y
 
 # Reboot into a ready environment
 echo "System will reboot in 60 secs."
-sleep 1m
+sleep 10
 reboot
