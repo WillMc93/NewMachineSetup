@@ -2,7 +2,7 @@
 
 # TODO: Find way to record runner of script or check for this argument
 LOCAL_USER=$1
-LOCAL_HOME=/Home/$1
+LOCAL_HOME=/home/$1
 
 
 [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
@@ -39,8 +39,8 @@ sudo -u $LOCAL_USER git config --global user.name "Will McElhenney"
 
 
 # Get Oh-My-ZSH
-curl https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o $TMPDIR/zsh_install.sh
-sudo -u $LOCAL_USER sh $TMPDIR/zsh_install.sh --unattended
+#curl https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o $TMPDIR/zsh_install.sh
+#sudo -u $LOCAL_USER sh $TMPDIR/zsh_install.sh --unattended
 
 # Get fonts for powerlevel10k and then git powerlevel10k
 curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Regular.ttf -o $FONTDIR/'MesloLGS NF Regular.ttf' 
@@ -50,7 +50,7 @@ curl https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloL
 
 sudo -u $LOCAL_USER git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$LOCAL_HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-sudo -u $LOCAL_USER chsh /bin/zsh
+#sudo -u $LOCAL_USER chsh /bin/zsh
 
 
 # Set ZSH theme to powerlevel10k and set plugins
@@ -59,7 +59,7 @@ sudo -u $LOCAL_USER chsh /bin/zsh
 
 # Get miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $TMPDIR/miniconda.sh
-sh $TMPDIR/miniconda.sh -b -p $LOCAL_HOME/miniconda
+sudo -u $LOCAL_USER sh $TMPDIR/miniconda.sh -b -p $LOCAL_HOME/miniconda
 
 eval "$($LOCAL_HOME/miniconda/bin/conda shell.bash hook)"
 sudo -u $LOCAL_USER $LOCAL_HOME/miniconda/bin/conda init bash
